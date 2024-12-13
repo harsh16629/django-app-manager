@@ -1,0 +1,23 @@
+# Python cache files
+__pycache__/
+
+# Environments
+env/
+venv/
+
+# Django stuff
+*.log
+*.pot
+*.pyc
+.db.sqlite3
+/media
+/staticfiles
+
+# Local development
+*.env
+
+# IDEs and editors
+.idea/
+.vscode/
+*.swp
+*~ 
