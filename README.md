@@ -1,4 +1,4 @@
-# AppManager API
+# django-backend-app
 
 ## Overview
 
