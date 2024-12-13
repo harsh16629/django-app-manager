@@ -16,7 +16,7 @@ This is a Django-based RESTful API to manage app details.
     python -m venv venv
     source venv/bin/activate  # On Windows use `venv\Scripts\activate`
 
-3. **nstall Dependencies**:
+3. **Install Dependencies**:
     ```bash
     pip install -r requirements.txt
 
