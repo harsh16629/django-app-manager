@@ -1,6 +1,8 @@
+# myapp/models.py
+
 from django.db import models
 
-class AppDetails(models.Model):
+class App(models.Model):
     app_name = models.CharField(max_length=100)
     version = models.CharField(max_length=50)
     description = models.TextField()
