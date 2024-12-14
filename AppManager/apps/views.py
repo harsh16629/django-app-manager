@@ -1,34 +1,42 @@
-from rest_framework import status
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from .models import App
-from .serializers import AppSerializer
+from django.http import JsonResponse, HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import get_object_or_404
+import json
+from .models import AppDetails
 
-@api_view(['POST'])
+# Add a view for adding app details
+@csrf_exempt
 def add_app(request):
     if request.method == 'POST':
-        serializer = AppSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            data = json.loads(request.body)
+            app_details = AppDetails.objects.create(
+                app_name=data['app_name'],
+                version=data['version'],
+                description=data['description']
+            )
+            return JsonResponse({"message": "App added successfully", "id": app_details.id})
+        except KeyError:
+            return JsonResponse({"error": "Invalid data format"}, status=400)
+    return JsonResponse({"error": "Invalid HTTP method"}, status=405)
 
-@api_view(['GET'])
+# Add a view for retrieving app details by ID
 def get_app(request, id):
-    try:
-        app = App.objects.get(pk=id)
-    except App.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+    if request.method == 'GET':
+        app_details = get_object_or_404(AppDetails, id=id)
+        return JsonResponse({
+            "id": app_details.id,
+            "app_name": app_details.app_name,
+            "version": app_details.version,
+            "description": app_details.description
+        })
+    return JsonResponse({"error": "Invalid HTTP method"}, status=405)
 
-    serializer = AppSerializer(app)
-    return Response(serializer.data)
-
-@api_view(['DELETE'])
+# Add a view for deleting app details by ID
+@csrf_exempt
 def delete_app(request, id):
-    try:
-        app = App.objects.get(pk=id)
-    except App.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-    app.delete()
-    return Response(status=status.HTTP_204_NO_CONTENT)
+    if request.method == 'DELETE':
+        app_details = get_object_or_404(AppDetails, id=id)
+        app_details.delete()
+        return JsonResponse({"message": "App deleted successfully"})
+    return JsonResponse({"error": "Invalid HTTP method"}, status=405)
