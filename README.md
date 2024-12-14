@@ -4,7 +4,7 @@
 
 1. Clone the repository:
    ```
-   git clone <repository-url>
+   git clone https://github.com/harsh16629/django-backend-app.git
    ```
 
 2. Navigate to the project directory:
@@ -15,7 +15,6 @@
 3. Create a virtual environment and activate it:
    ```
    python3 -m venv env
-   source env/bin/activate
    ```
 
 4. Install dependencies:
@@ -48,43 +47,23 @@
    python manage.py runserver
    ```
 
-## API Endpoints
+## Verify API Endpoints in Powershell
 
 ### Add App
-- **Endpoint:** POST /add-app
-- **Request Body:**
-  ```json
-  {
-      "app_name": "App Name",
-      "version": "1.0",
-      "description": "App description."
-  }
-  ```
-- **Response:**
-  ```json
-  {
-      "message": "App added successfully",
-      "id": 1
-  }
-  ```
-
+- **Endpoint: POST**
+```
+   Invoke-WebRequest -Uri http://127.0.0.1:8000/add-app `
+   -Method POST `
+   -Headers @{"Content-Type"="application/json"} `
+   -Body '{"app_name": "[your_app_name]", "version": "[your_app_version]", "description": "[your_app_description]"}'
+```
 ### Get App
-- **Endpoint:** GET /get-app/{id}
-- **Response:**
-  ```json
-  {
-      "id": 1,
-      "app_name": "App Name",
-      "version": "1.0",
-      "description": "App description."
-  }
-  ```
-
+- **Endpoint: GET**
+```
+   curl -Method GET http://127.0.0.1:8000/get-app/[your_app_id]
+```
 ### Delete App
-- **Endpoint:** DELETE /delete-app/{id}
-- **Response:**
-  ```json
-  {
-      "message": "App deleted successfully"
-  }
-  ```
+- **Endpoint: DELETE**
+```
+   curl -Method DELETE http://127.0.0.1:8000/delete-app/[your_app_id]
+```
