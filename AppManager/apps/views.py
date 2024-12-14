@@ -34,3 +34,8 @@ def delete_app(request, id):
         app = get_object_or_404(App, id=id)
         app.delete()
         return JsonResponse({"message": "App successfully deleted"}, status=204)
+
+def list_apps(request):
+    if request.method == "GET":
+        apps = App.objects.all().values('id', 'app_name', 'version', 'description')
+        return JsonResponse(list(apps), safe=False)
