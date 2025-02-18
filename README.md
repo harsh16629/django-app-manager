@@ -1,4 +1,4 @@
-# Django API for App Management
+# Django App Manager
 
 ## Requirements
 
