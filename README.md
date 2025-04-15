@@ -1,5 +1,5 @@
 # Django App Manager
-
+A Django-based backend web application integrated with PostgreSQL to manage app details. It provides RESTful API endpoints to add, retrieve, delete, and list apps using JSON data. Ideal for learning backend development, database integration, and API handling with Django.
 ## Requirements
 
 - Python 3.7 or higher
